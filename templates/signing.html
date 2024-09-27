@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Capture</title>
+</head>
+<body>
+    <h1>Face Capture</h1>
+    <form id="captureForm" action="/start_capture" method="POST">
+        <input type="text" name="first_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+        <input type="text" name="phone_number" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Start Capture</button>
+    </form>
+
+    <h2>Video Feed</h2>
+    <img id="video" src="/video_feed" width="640" height="480" />
+
+    <script>
+        let frameCount = 0;
+
+        const videoElement = document.getElementById('video');
+
+        // Listen for when the video feed is loaded
+        videoElement.onload = () => {
+            setInterval(() => {
+                frameCount++;
+                if (frameCount === 30) {
+                    // Redirect to account after capturing 30 frames
+                    window.location.href = '/account';
+                }
+            }, 1000); // Adjust this based on your frame capture logic
+        };
+    </script>
+</body>
+</html>
