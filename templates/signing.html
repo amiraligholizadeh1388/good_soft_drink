@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Face Capture</title>
+    <title>ثبت نام</title>
 </head>
 <body>
-    <h1>Face Capture</h1>
+    <h1>ثبت نام</h1>
     <form id="captureForm" action="/start_capture" method="POST">
-        <input type="text" name="first_name" placeholder="First Name" required>
-        <input type="text" name="last_name" placeholder="Last Name" required>
-        <input type="text" name="phone_number" placeholder="Phone Number" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <button type="submit">Start Capture</button>
+        <input type="text" name="first_name" placeholder="نام" required><br><br>
+        <input type="text" name="last_name" placeholder="نام خانوادگی" required><br><br>
+        <input type="text" name="phone_number" placeholder="شماره تلفن همراد" required><br><br>
+        <input type="email" name="email" placeholder="نشانی الکترونیک(ایمیل)" required><br><br>
+        <button type="submit">شروع اسکن چهره</button>
     </form>
-
-    <h2>Video Feed</h2>
-    <img id="video" src="/video_feed" width="640" height="480" />
 
     <script>
         let frameCount = 0;

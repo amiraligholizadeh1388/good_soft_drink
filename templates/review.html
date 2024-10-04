@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرور</title>
+</head>
+<body>
+    <h1>مرور</h1>
+    <p>آیا این اطلاعات خرید را قبول میکنید</p>
+    <table>
+        <tr>
+            <th>
+                <p>نام کالا</p>
+            </th>
+            <th>
+                <p>تعداد</p>
+            </th>
+            <th>
+                <p>قیمت</p>
+            </th>
+        </tr>
+        {%for i in form_request%}
+            <tr>
+                {%for n in i%}
+                    <td>
+                        <p>{{n}}</p>
+                    </td>
+                {%endfor%}
+            </tr>
+        {%endfor%}
+    </table>
+    <a class="b" style="margin: auto;background: red;" href="/shop">نه</a>
+    <form action="/buy" , method="post">
+        <input type="hidden" name="request" id="data" value="{{fre}}">
+        <input type="hidden" name="id" id="10" value="{{a}}">
+        <button class="b" style="margin: auto;background: green;" type="submit">بله</button>
+    </form>
+</body>
+</html>

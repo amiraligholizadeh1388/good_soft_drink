@@ -4,6 +4,7 @@ import cv2
 import os
 import numpy as np
 from datetime import timedelta
+import ast
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -22,6 +23,13 @@ class User(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
+
+class buying(db.Model):
+    ID = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    phone_number = db.Column(db.String(15), nullable=False)
+    order = db.Column(db.String(300) , nullable=False)
 
 @app.route('/signup')
 def signing():
@@ -122,10 +130,12 @@ def generate_frames():
 @app.route('/account')
 def account():
     user_id = session.get('user_id')  # Get user_id from session
+    if user_id == 1:
+        return render_template('admin.html')
     if user_id is None:
         return redirect(url_for('signing'))  # Redirect to signing if no user_id
     user = db.session.get(User, user_id)
-    return render_template('account.html', first_name=user.first_name)
+    return render_template('account.html', first_name=user.first_name , a=user_id)
 
 # @app.route('/face_login')
 # def face_login():
@@ -182,13 +192,46 @@ def perform_face_login():
         
     return "Face recognition login complete."
 
-@app.route('/shop')
+@app.route('/shop' , methods=['POST'])
 def shop():
-    return render_template('shop.html')
+    id = int(request.form['id'])
+    return render_template('shop.html' , a=id)
 
 @app.route('/review' , methods=['POST'])
 def review():
-    return request.form
+    form = request.form
+    form = dict(form)
+    print(form)
+    id = form['id']
+    del form['id']
+    for i in form:
+        form[i] = int(form[i])
+    a = []
+    b = []
+    
+    for i in form:
+        if form[i] != 0:
+            a.append([i , form[i] , 0])
+            b.append([i , form[i]])
+    return render_template('review.html' , form_request=a , fre=b , a=id)
+
+@app.route('/buy' , methods=['POST'])
+def buy():
+    form = dict(request.form)['request']
+    id = int(request.form['id'])
+    form = ast.literal_eval(form)
+    a = ''
+    for i in form:
+        a += f'{i[0]}*{i[-1]} ,'
+    a = a[ :-1]
+    user = User.query.get(id)
+    new_order = buying(first_name=user.first_name, last_name=user.last_name, phone_number=user.phone_number, order=a)
+    db.session.add(new_order)
+    db.session.commit()
+    return render_template('buy.html')
+@app.route('/success')
+def success():
+    return render_template('success.html')
 if __name__ == '__main__':
     # Create database tables within an application context
     with app.app_context():

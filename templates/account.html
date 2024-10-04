@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
+    <title>حساب کاربری</title>
 </head>
 <body>
-    <h1>Account Page</h1>
+    <h1>حساب کاربری</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul>
@@ -16,8 +16,22 @@
         </ul>
       {% endif %}
     {% endwith %}
-    <h2>Hello, {{ first_name }}!</h2>
-    <p>You intered to your account successfully.</p>
-    <a href="/shop">shop</a>
+    <h2>سلام {{ first_name }}!</h2>
+    <p>به حساب کاربریتون خوش آمدید.</p>
+    <h2>نکات مهم</h2>
+    <p>1-هر یه باکس نوشابه خوب تک نفره مساویست با12 عدد نوشابه تک نفره</p>
+    <p>2-هر یه باکس نوشابه خوب قوطی ای مساویست با 24 عدد نوشابه قوطی ای تک نفره</p>
+    <p>3-هر یه باکس نوشابه خوب خانواده مساویست با 6 عدد نوشابه قوطی ای خانواده</p>
+    <p>4-ما اینجا چندین طعم نوشابه خوب داریم:</p>
+    <p>نوشابه با طعم کولا</p>
+    <p>نوشابه با طعم پرتقال</p>
+    <p>نوشابه با طعم لیمو</p>
+    <p>نوشابه با طعم لیموناد</p>
+    <br><br>
+    
+    <form action="/shop" method="post">
+      <input type="hidden" name="id" value="{{a}}" id="2">
+      <button type="submit" style="color: white;background-color: #500000;">مغازه</button>
+    </form>
 </body>
 </html>

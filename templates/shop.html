@@ -1,23 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
+    <title>مغازه</title>
+    <style>
+        img{
+            width: 30%;
+        }
+    </style>
 </head>
 <body>
-    <h1>shop</h1>
+    <h1>مغازه</h1>
     <form action="/review" method="POST">
-        <span><p>1</p></span><input type="number" name="thing1" id="1" placeholder="number" value="0">
-        <span><p>2</p></span><input type="number" name="thing2" id="2" placeholder="number" value="0">
-        <span><p>3</p></span><input type="number" name="thing3" id="3" placeholder="number" value="0">
-        <span><p>4</p></span><input type="number" name="thing4" id="4" placeholder="number" value="0">
-        <span><p>5</p></span><input type="number" name="thing5" id="5" placeholder="number" value="0">
-        <span><p>6</p></span><input type="number" name="thing6" id="6" placeholder="number" value="0">
-        <span><p>7</p></span><input type="number" name="thing7" id="7" placeholder="number" value="0">
-        <span><p>8</p></span><input type="number" name="thing8" id="8" placeholder="number" value="0">
+        <img src="../static/image/gs.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم کولا قوطی ای</h4></span><input type="number" name="کوکا قوطی ای" id="1" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/gz.png" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم پرتقال قوطی ای</h4></span><input type="number" name="پرتقالی قوطی ای" id="2" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/gsp.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم لیمو(اسپرایت خوب) قوطی ای</h4></span><input type="number" name="اسپرایت قوطی ای" id="3" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/gl.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم لیموناذ(لیموناد خوب) قوطی ای</h4></span><input type="number" name="لیموناد قوطی ای" id="4" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/ts.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم کولا تک نفره</h4></span><input type="number" name="کوکا تک نفره" id="5" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/tz.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم پرتقال تک نفره</h4></span><input type="number" name="پرتقالی تک نفره" id="6" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/tsp.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم لیمو(اسپرایت خوب) تک نفره</h4></span><input type="number" name="اسپرایت تک نفره" id="7" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/tl.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم لیموناذ(لیموناد خوب) تک نفره</h4></span><input type="number" name="لیموناد تک نفره" id="8" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/ks.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم کولا خانواده</h4></span><input type="number" name="کوکا خانواده" id="9" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/kz.png" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم پرتقال خانواده</h4></span><input type="number" name="پرتقالی خانواده" id="10" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/ksp.jpg" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم لیمو(اسپرایت خوب) خانواده</h4></span><input type="number" name="اسپرایت خانواده" id="11" placeholder="تعداد" value="0" min="0"><br><br>
+        <img src="../static/image/kl.png" alt="نوشابه خوب">
+        <span><h4>نوشابه خوب با طعم لیموناذ(لیموناد خوب) خانواده</h4></span><input type="number" name="لیموناد خانواده" id="12" placeholder="تعداد" value="0" min="0"><br><br>
         <br><br>
-        <button type="submit">submit</button>
+        <input type="hidden" value="{{a}}" name="id" id="13">
+        <button type="submit">سفارش</button>
     </form>
 </body>
 </html>
