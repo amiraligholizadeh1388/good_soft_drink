@@ -123,6 +123,44 @@ def account():
     user = User.query.get(user_id)
     return render_template('account.html', first_name=user.first_name)
 
+@app.route('/face_login')
+def face_login():
+    return render_template('face_login.html')
+
+@app.route('/perform_face_login')
+def perform_face_login():
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        ret, frame = cap.read()
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+        for (x, y, w, h) in faces:
+            face = gray[y:y + h, x + x + w]
+
+            # Predict the person
+            label, confidence = recognizer.predict(face)
+
+            # If confidence is good enough (you can define a threshold)
+            if confidence < 50:  # lower value means better match
+                # Log in the user by retrieving their user ID
+                user = User.query.get(label)
+                if user:
+                    session['user_id'] = user.id
+                    flash(f"Welcome back, {user.first_name}!", "success")
+                    return redirect(url_for('account'))
+            else:
+                flash("Face not recognized. Try again.", "danger")
+
+        # Exit when 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+        train()
+    cap.release()
+    cv2.destroyAllWindows()
+    return "Face recognition login complete."
+
 
 if __name__ == '__main__':
     # Create database tables within an application context

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Login</title>
+</head>
+<body>
+    <h1>Login using Face Recognition</h1>
+    <p>Please look at the camera to log in.</p>
+    <img src="{{ url_for('video_feed_source') }}" alt="Video Feed" />
+
+    <!-- The JS part to submit the form when face is recognized -->
+    <form action="{{ url_for('perform_face_login') }}" method="POST" id="faceLoginForm"></form>
+</body>
+</html>
