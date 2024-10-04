@@ -7,7 +7,26 @@
 </head>
 <body>
     <h1>Video Feed</h1>
-    <img src="{{ url_for('video_feed', user_id=user_id) }}" id="video" style="width: 640px; height: 480px;"/>
-    <p>Press Ctrl+C in the console to stop capturing photos.</p>
+    <img id="video" src="/video_feed_source" width="640" height="480" />
+
+    <script>
+        let frameCount = 0;
+
+        const videoElement = document.getElementById('video');
+
+        // Listen for when the video feed is loaded
+        videoElement.onload = () => {
+            setInterval(() => {
+                frameCount++;
+                console.log(`Captured ${frameCount} frames.`);
+                
+                if (frameCount === 30) {
+                    // Redirect to account page after capturing 30 frames
+                    alert("Captured 30 frames! Redirecting to your account...");
+                    window.location.href = '/account';
+                }
+            }, 1000); // Adjust this based on your frame capture logic
+        };
+    </script>
 </body>
 </html>
