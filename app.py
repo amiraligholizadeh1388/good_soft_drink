@@ -12,6 +12,10 @@ app.config['SESSION_PERMANENT'] = False
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 db = SQLAlchemy(app)
 
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer.read('trained_face_model.yml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
@@ -129,6 +133,12 @@ def face_login():
 
 @app.route('/perform_face_login')
 def perform_face_login():
+    # Load the trained face recognizer model
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    recognizer.read('trained_face_model.yml')
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+    # Start the camera
     cap = cv2.VideoCapture(0)
 
     while True:
@@ -137,17 +147,24 @@ def perform_face_login():
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
         for (x, y, w, h) in faces:
-            face = gray[y:y + h, x + x + w]
+            face = gray[y:y + h, x:x + w]
 
             # Predict the person
             label, confidence = recognizer.predict(face)
+            print(f"Detected ID: {label} with Confidence: {confidence}")
 
-            # If confidence is good enough (you can define a threshold)
+            # Display the label on the image
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv2.putText(frame, f"ID: {label}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
+
+            rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
             if confidence < 50:  # lower value means better match
                 # Log in the user by retrieving their user ID
                 user = User.query.get(label)
                 if user:
                     session['user_id'] = user.id
+                    cap.release()
+                    cv2.destroyAllWindows()
                     flash(f"Welcome back, {user.first_name}!", "success")
                     return redirect(url_for('account'))
             else:
@@ -156,9 +173,13 @@ def perform_face_login():
         # Exit when 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        train()
+
     cap.release()
     cv2.destroyAllWindows()
+            # If confidence is good enough (you can define a threshold)
+            
+
+        
     return "Face recognition login complete."
 
 
