@@ -23,7 +23,7 @@ class User(db.Model):
     phone_number = db.Column(db.String(15), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
 
-@app.route('/')
+@app.route('/signup')
 def signing():
     return render_template('signing.html')
 
@@ -124,14 +124,14 @@ def account():
     user_id = session.get('user_id')  # Get user_id from session
     if user_id is None:
         return redirect(url_for('signing'))  # Redirect to signing if no user_id
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     return render_template('account.html', first_name=user.first_name)
 
-@app.route('/face_login')
-def face_login():
-    return render_template('face_login.html')
+# @app.route('/face_login')
+# def face_login():
+#     return render_template('face_login.html')
 
-@app.route('/perform_face_login')
+@app.route('/login')
 def perform_face_login():
     # Load the trained face recognizer model
     recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -158,9 +158,9 @@ def perform_face_login():
             cv2.putText(frame, f"ID: {label}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
 
             rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
-            if confidence < 50:  # lower value means better match
+            if confidence > 50:  # lower value means better match
                 # Log in the user by retrieving their user ID
-                user = User.query.get(label)
+                user = db.session.get(User, label)
                 if user:
                     session['user_id'] = user.id
                     cap.release()
@@ -182,7 +182,13 @@ def perform_face_login():
         
     return "Face recognition login complete."
 
+@app.route('/shop')
+def shop():
+    return render_template('shop.html')
 
+@app.route('/review' , methods=['POST'])
+def review():
+    return request.form
 if __name__ == '__main__':
     # Create database tables within an application context
     with app.app_context():

@@ -7,57 +7,10 @@
 </head>
 <body>
     <h1>Login using Face Recognition</h1>
-    <p>Please look at the camera and press "Recognize" to log in.</p>
+    <p>Please look at the camera to log in.</p>
+    <img src="{{ url_for('perform_face_login') }}" alt="Video Feed" />
 
-    <video id="video" width="640" height="480" autoplay></video>
-    <button id="captureBtn">Recognize</button>
-    <canvas id="canvas" style="display:none;"></canvas>
-    
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const captureBtn = document.getElementById('captureBtn');
-        
-        // Get access to the camera and stream it to the video element
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-            })
-            .catch(error => {
-                console.error("Error accessing webcam: ", error);
-            });
-
-        // Capture the frame when the "Recognize" button is clicked
-        captureBtn.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-            
-            // Convert the captured image to base64
-            const imageData = canvas.toDataURL('image/png');
-
-            // Send the captured image to the backend for recognition
-            fetch('/perform_face_login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ image: imageData })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Redirect to the account page if login is successful
-                    window.location.href = '/account';
-                } else {
-                    alert('Face not recognized. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error during face login:', error);
-            });
-        });
-    </script>
+    <!-- The JS part to submit the form when face is recognized -->
+    <form action="{{ url_for('perform_face_login') }}" method="POST" id="faceLoginForm"></form>
 </body>
 </html>
