@@ -28,7 +28,39 @@
     <p>نوشابه با طعم لیمو</p>
     <p>نوشابه با طعم لیموناد</p>
     <br><br>
-    
+    <h2>سفارشات</h2>
+    {%if b%}
+        <table>
+            <tr>
+                <th>
+                    <p>
+                        سفارش
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        کد رهگیری
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        وضعیت سفارش
+                    </p>
+                </th>
+            </tr>
+        {%for i in b%}
+            <tr>
+                {%for n in i%}
+                    <td>
+                        <p>{{n}}</p>
+                    </td>
+                {%endfor%}
+            </tr>
+        {%endfor%}
+    {%else%}
+        <p>سفارشی وجود ندارد</p>
+    {%endif%}
+    </table>
     <form action="/shop" method="post">
       <input type="hidden" name="id" value="{{a}}" id="2">
       <button type="submit" style="color: white;background-color: #500000;">مغازه</button>

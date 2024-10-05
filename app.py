@@ -30,6 +30,7 @@ class buying(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
     order = db.Column(db.String(300) , nullable=False)
+    status = db.Column(db.String(300) , nullable=False)
 
 @app.route('/signup')
 def signing():
@@ -130,12 +131,22 @@ def generate_frames():
 @app.route('/account')
 def account():
     user_id = session.get('user_id')  # Get user_id from session
-    if user_id == 1:
-        return render_template('admin.html')
     if user_id is None:
         return redirect(url_for('signing'))  # Redirect to signing if no user_id
     user = db.session.get(User, user_id)
-    return render_template('account.html', first_name=user.first_name , a=user_id)
+    all_ordr = buying.query.filter(buying.phone_number == user.phone_number)
+    all_orders = buying.query.filter(buying.status == 'ارسال نشده')
+    orders= []
+    ordr = []
+    if bool(all_orders):
+        for i in all_orders:
+            orders.append([i.first_name , i.last_name , i.phone_number , i.order , i.ID , i.status])
+    if user_id == 1:
+        return render_template('admin.html' , b=orders)
+    if bool(all_ordr):
+        for i in all_ordr:
+            ordr.append([i.order , i.ID , i.status])
+    return render_template('account.html', first_name=user.first_name , a=user_id , b=ordr)
 
 # @app.route('/face_login')
 # def face_login():
@@ -161,7 +172,7 @@ def perform_face_login():
 
             # Predict the person
             label, confidence = recognizer.predict(face)
-            print(f"Detected ID: {label} with Confidence: {confidence}")
+            # print(f"Detected ID: {label} with Confidence: {confidence}")
 
             # Display the label on the image
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
@@ -225,13 +236,19 @@ def buy():
         a += f'{i[0]}*{i[-1]} ,'
     a = a[ :-1]
     user = User.query.get(id)
-    new_order = buying(first_name=user.first_name, last_name=user.last_name, phone_number=user.phone_number, order=a)
+    new_order = buying(first_name=user.first_name, last_name=user.last_name, phone_number=user.phone_number, order=a , status='ارسال نشده')
     db.session.add(new_order)
     db.session.commit()
     return render_template('buy.html')
 @app.route('/success')
 def success():
     return render_template('success.html')
+@app.route('/delete' , methods=['POST'])
+def delete():
+    code = request.form['id']
+    order = buying.query.filter(buying.ID == code).update({buying.status:"ارسال شده"})
+    flash(f"سفارش مورد نظر با کد رهگیری {code} از وضعیت ارسال نشده به ارسال شده تغییر پیدا کرد", "success")
+    return redirect(url_for('account'))
 if __name__ == '__main__':
     # Create database tables within an application context
     with app.app_context():
