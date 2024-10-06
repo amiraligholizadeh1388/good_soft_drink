@@ -246,7 +246,9 @@ def success():
 @app.route('/delete' , methods=['POST'])
 def delete():
     code = request.form['id']
-    order = buying.query.filter(buying.ID == code).update({buying.status:"ارسال شده"})
+    order = buying.query.get(code)
+    order.status = 'ارسال شده'
+    db.session.commit()
     flash(f"سفارش مورد نظر با کد رهگیری {code} از وضعیت ارسال نشده به ارسال شده تغییر پیدا کرد", "success")
     return redirect(url_for('account'))
 if __name__ == '__main__':
