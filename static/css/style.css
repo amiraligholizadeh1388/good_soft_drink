@@ -239,3 +239,12 @@ a.error-button{
   width: 20%;
   border-radius: 20px;
 }
+.btnn{
+  background :#e30000;
+  color: #fff;
+  font-family: lalezar;
+  font-size: 20px;
+  text-align: center;
+  width: 20%;
+  border-radius: 20px;
+}
