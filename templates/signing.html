@@ -4,6 +4,15 @@
 {%endblock%}
 {%block body%}
     <h1>ثبت نام</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <form id="captureForm" action="/start_capture" method="POST">
         <input type="text" name="first_name" placeholder="نام" required><br><br>
         <input type="text" name="last_name" placeholder="نام خانوادگی" required><br><br>

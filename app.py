@@ -44,7 +44,13 @@ def start_capture():
     last_name = request.form['last_name']
     phone_number = request.form['phone_number']
     email = request.form['email']
-
+    for i in User.query.all():
+        if i.phone_number == phone_number:
+            flash('این شماره تلفن قبلا ثبت شده است' , 'danger')
+            return redirect(url_for("signing"))
+        elif i.email == email:
+            flash('این نشانی الکترونیک(ایمیل) قبلا ثبت شده است' , 'danger')
+            return redirect(url_for("signing"))
     # Save user info to the database
     new_user = User(first_name=first_name, last_name=last_name, phone_number=phone_number, email=email)
     db.session.add(new_user)
@@ -285,4 +291,4 @@ if __name__ == '__main__':
     # Create database tables within an application context
     with app.app_context():
         db.create_all()  # Create database tables
-    app.run(debug=True)
+    app.run()
