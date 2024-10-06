@@ -56,10 +56,10 @@
                 {%endfor%}
             </tr>
         {%endfor%}
-        <br><br>
         <form action="/delete" method="post">
             <input type="text" name="id" id="1" placeholder="کد رهگیری مورد نظر">
-            <button type="submit">حذف</button>
+            <br>
+            <button type="submit" class="b">حذف</button>
         </form>
     {%else%}
         <p>سفارشی وجود ندارد</p>
