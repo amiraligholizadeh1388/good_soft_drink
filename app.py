@@ -31,7 +31,9 @@ class buying(db.Model):
     phone_number = db.Column(db.String(15), nullable=False)
     order = db.Column(db.String(300) , nullable=False)
     status = db.Column(db.String(300) , nullable=False)
-
+@app.route('/')
+def index():
+    return render_template('index.html')
 @app.route('/signup')
 def signing():
     return render_template('signing.html')
@@ -186,7 +188,7 @@ def perform_face_login():
                     session['user_id'] = user.id
                     cap.release()
                     cv2.destroyAllWindows()
-                    flash(f"Welcome back, {user.first_name}!", "success")
+                    flash(f"خوش برگشتید {user.first_name}!", "success")
                     return redirect(url_for('account'))
             else:
                 flash("Face not recognized. Try again.", "danger")
@@ -205,14 +207,16 @@ def perform_face_login():
 
 @app.route('/shop' , methods=['POST'])
 def shop():
+    print(request.form)
     id = int(request.form['id'])
     return render_template('shop.html' , a=id)
 
 @app.route('/review' , methods=['POST'])
 def review():
     form = request.form
+    
     form = dict(form)
-    print(form)
+        
     id = form['id']
     del form['id']
     for i in form:
@@ -224,8 +228,15 @@ def review():
         if form[i] != 0:
             a.append([i , form[i] , 0])
             b.append([i , form[i]])
-    return render_template('review.html' , form_request=a , fre=b , a=id)
-
+    if not bool(a):
+        flash('شما که چیزی انتخاب نکردید' , 'danger')
+        return render_template('change.html' , a=id)
+    else:
+        return render_template('review.html' , form_request=a , fre=b , a=id)
+# @app.route('/change')
+# def change():
+#     id = request.form["a"]
+#     return render_template('change.html' , a=id)
 @app.route('/buy' , methods=['POST'])
 def buy():
     form = dict(request.form)['request']

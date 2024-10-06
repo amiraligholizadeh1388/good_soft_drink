@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%extends 'base.html'%}
+{%block head%}
     <title>سلام ادمین</title>
-</head>
-<body>
+{%endblock%}
+{%block body%}
     <h1>سلام ادمین</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -68,5 +65,4 @@
         <p>سفارشی وجود ندارد</p>
     {%endif%}
     </table>
-</body>
-</html>
+{%endblock%}

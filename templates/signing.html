@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%extends 'base.html'%}
+{%block head%}
     <title>ثبت نام</title>
-</head>
-<body>
+{%endblock%}
+{%block body%}
     <h1>ثبت نام</h1>
     <form id="captureForm" action="/start_capture" method="POST">
         <input type="text" name="first_name" placeholder="نام" required><br><br>
         <input type="text" name="last_name" placeholder="نام خانوادگی" required><br><br>
         <input type="text" name="phone_number" placeholder="شماره تلفن همراد" required><br><br>
         <input type="email" name="email" placeholder="نشانی الکترونیک(ایمیل)" required><br><br>
-        <button type="submit">شروع اسکن چهره</button>
+        <button type="submit" class="b">شروع اسکن چهره</button>
     </form>
 
     <script>
@@ -31,5 +28,4 @@
             }, 1000); // Adjust this based on your frame capture logic
         };
     </script>
-</body>
-</html>
+{%endblock%}

@@ -1,17 +1,23 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%extends 'base.html'%}
+{%block head%}
     <title>مغازه</title>
     <style>
         img{
             width: 30%;
         }
     </style>
-</head>
-<body>
+{%endblock%}
+{%block body%}
     <h1>مغازه</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <form action="/review" method="POST">
         <img src="../static/image/gs.jpg" alt="نوشابه خوب">
         <span><h4>نوشابه خوب با طعم کولا قوطی ای</h4></span><input type="number" name="کوکا قوطی ای" id="1" placeholder="تعداد" value="0" min="0"><br><br>
@@ -39,7 +45,6 @@
         <span><h4>نوشابه خوب با طعم لیموناذ(لیموناد خوب) خانواده</h4></span><input type="number" name="لیموناد خانواده" id="12" placeholder="تعداد" value="0" min="0"><br><br>
         <br><br>
         <input type="hidden" value="{{a}}" name="id" id="13">
-        <button type="submit">سفارش</button>
+        <button type="submit" class="b">سفارش</button>
     </form>
-</body>
-</html>
+{%endblock%}

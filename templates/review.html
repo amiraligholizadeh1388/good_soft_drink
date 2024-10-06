@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%extends 'base.html'%}
+{%block head%}
     <title>مرور</title>
-</head>
-<body>
+{%endblock%}
+{%block body%}
     <h1>مرور</h1>
     <p>آیا این اطلاعات خرید را قبول میکنید</p>
     <table>
@@ -30,11 +27,17 @@
             </tr>
         {%endfor%}
     </table>
-    <a class="b" style="margin: auto;background: red;" href="/shop">نه</a>
-    <form action="/buy" , method="post">
-        <input type="hidden" name="request" id="data" value="{{fre}}">
+    
+    <form action="/shop" method="post">
+        <button class="no" type="submit">نه</button>
         <input type="hidden" name="id" id="10" value="{{a}}">
-        <button class="b" style="margin: auto;background: green;" type="submit">بله</button>
     </form>
-</body>
-</html>
+        
+        
+    <form action="/buy" method="post">
+        <input type="hidden" name="request" id="data" value="{{fre}}">
+        <input type="hidden" name="id" id="11" value="{{a}}">
+        <button class="yes" type="submit">بله</button>
+    </form>
+        
+{%endblock%}

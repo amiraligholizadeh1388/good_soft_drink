@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%extends 'base.html'%}
+{%block head%}
     <title>اسکن چهره</title>
-</head>
-<body>
+{%endblock%}
+{%block body%}
     <h1>اسکن چهره</h1>
     <img id="video" src="/video_feed_source" width="640" height="480" />
 
@@ -28,5 +25,4 @@
             }, 1000); // Adjust this based on your frame capture logic
         };
     </script>
-</body>
-</html>
+{%endblock%}

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{%extends 'base.html'%}
+{%block head%}
     <title>حساب کاربری</title>
-</head>
-<body>
+{%endblock%}
+{%block body%}
     <h1>حساب کاربری</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -65,5 +62,4 @@
       <input type="hidden" name="id" value="{{a}}" id="2">
       <button type="submit" style="color: white;background-color: #500000;">مغازه</button>
     </form>
-</body>
-</html>
+{%endblock%}

@@ -1,5 +1,5 @@
 body {
-  background-image: url('../images/bg.png');
+  background-image: url('../image/bg.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -180,7 +180,7 @@ input{
   font-family: lalezar;
   font-size: 20px;
 }
-input.b{
+button.b{
   background :#e30000;
   color: #fff;
   font-family: lalezar;
@@ -199,4 +199,40 @@ a.error-button{
   font-family: lalezar;
   color: white;
   font-size: 50px;
+}
+.success{
+  background: rgba(0, 128, 0, 0.564);
+  height: 30px;
+  border: 2px solid green;
+  color: #ffffff;
+  margin-left: 50px;
+  list-style: none;
+  font-size: 20pt;
+  padding: 20px;
+}
+.danger{
+  background: rgba(255, 0, 0, 0.564);
+  height: 30px;
+  border: 2px solid red;
+  color: #ffffff;
+  margin-left: 50px;
+  list-style: none;
+  font-size: 20pt;
+  padding: 20px;
+}
+.yes{
+  background :green;
+  color: #fff;
+  font-family: lalezar;
+  font-size: 20px;
+  text-align: center;
+  width: 20%;
+}
+.no{
+  background :red;
+  color: #fff;
+  font-family: lalezar;
+  font-size: 20px;
+  text-align: center;
+  width: 20%;
 }
