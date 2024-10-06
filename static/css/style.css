@@ -195,11 +195,14 @@ button.b{
 }
 a.error-button{
   text-align: center;
-  background-color: rgb(0, 138, 255);
+  background:#e30000;
   border-radius: 20px;
   font-family: lalezar;
   color: white;
   font-size: 50px;
+}
+a.error-button :hover{
+  background:#500000;
 }
 .success{
   background: rgba(0, 128, 0, 0.564);

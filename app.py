@@ -262,6 +262,25 @@ def delete():
     db.session.commit()
     flash(f"سفارش مورد نظر با کد رهگیری {code} از وضعیت ارسال نشده به ارسال شده تغییر پیدا کرد", "success")
     return redirect(url_for('account'))
+@app.errorhandler(400)
+def error400(e):
+    return render_template('error400.html') , 400
+
+@app.errorhandler(401)
+def error401(e):
+    return render_template('error401.html') , 401
+
+@app.errorhandler(403)
+def error403(e):
+    return render_template('error403.html') , 403
+
+@app.errorhandler(404)
+def error404(e):
+    return render_template('error404.html') , 404
+
+@app.errorhandler(500)
+def error500(e):
+    return render_template('error500.html') , 500
 if __name__ == '__main__':
     # Create database tables within an application context
     with app.app_context():
